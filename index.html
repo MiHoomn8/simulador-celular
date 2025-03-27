@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulando Celular com Font Awesome</title>
+  <!-- Link para o Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #eaeaea;
+    }
+
+    /* Estilo para a tela do celular com borda preta */
+    .phone-screen {
+      width: 320px;
+      height: 600px;
+      border-radius: 40px;
+      background-color: #fff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 0;
+      position: relative;
+      overflow: hidden;
+      border: 5px solid black;
+    }
+
+    /* Barra de status do celular ajustada para não ultrapassar */
+    .status-bar {
+      width: 100%;
+      height: 20px;
+      background-color: #007bff;
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* Título da tela */
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* Estilo dos ícones na tela do celular */
+    .icons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Agora com 2 colunas */
+      gap: 20px; /* Mantém o espaçamento entre os ícones */
+      width: 100%;
+      padding: 0 20px;
+      margin-top: 60px;
+    }
+
+    .icon-container {
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 60px; /* Aumentei o tamanho dos ícones */
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    /* Adicionando cores nos ícones */
+    .phone-icon {
+      color: #34b7f1; /* Azul */
+    }
+    .message-icon {
+      color: #f4a261; /* Laranja */
+    }
+    .settings-icon {
+      color: #2d9cdb; /* Azul Claro */
+    }
+    .camera-icon {
+      color: #e76f51; /* Vermelho */
+    }
+    .gallery-icon {
+      color: #2a9d8f; /* Verde */
+    }
+    .call-history-icon {
+      color: #f9c74f; /* Amarelo */
+    }
+
+    /* Efeito de hover nos ícones */
+    .icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Botão de home */
+    .home-button {
+      width: 30px; /* Tamanho reduzido */
+      height: 5px; /* Tamanho reduzido */
+      background-color: #333;
+      border-radius: 20px;
+      position: absolute;
+      bottom: 15px; /* Ajustado para ficar mais próximo do fundo */
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Estilo para o chat */
+    .chat-container {
+      display: none; /* Esconde o chat inicialmente */
+      width: 100%;
+      height: calc(100% - 60px); /* Subtrai o espaço da barra de status */
+      padding: 10px;
+      background-color: #f0f0f0;
+      overflow-y: auto;
+      position: absolute;
+      top: 60px; /* Ajusta o chat para logo abaixo da barra de status */
+    }
+
+    .message {
+      background-color: #34b7f1;
+      color: white;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .message.received {
+      background-color: #f4a261;
+    }
+
+    /* Botão de Voltar para o Home */
+    .back-to-home {
+      background-color: #333;
+      color: white;
+      padding: 5px 10px; /* Menor, mais minimalista */
+      border-radius: 20px; /* Deixando mais arredondado */
+      cursor: pointer;
+      text-align: center;
+      width: auto; /* Tamanho automático */
+      font-size: 12px; /* Tamanho de fonte reduzido */
+      margin-top: 10px;
+    }
+
+    /* Estilo para a tela inicial */
+    .icons-container {
+      position: absolute;
+      top: 60px;
+      width: 100%;
+      height: calc(100% - 60px); /* Ajuste do tamanho */
+      background-color: #f0f0f0;
+    }
+
+    /* Remover os nomes abaixo dos ícones */
+    .icon-container p {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-screen">
+    <div class="status-bar"></div>
+    <h1>Simulando Celular</h1>
+
+    <!-- Tela inicial com os ícones -->
+    <div class="icons-container" id="homeScreen">
+      <div class="icons">
+        <div class="icon-container">
+          <i class="fas fa-phone icon phone-icon" onclick="speakWord('Telefone')"></i>
+        </div>
+        <div class="icon-container">
+          <i class="fas fa-comment-dots icon message-icon" onclick="speakWord('Mensagem')"></i>
+        </div>
+        <div class="icon-container">
+          <i class="fas fa-cogs icon settings-icon" onclick="speakWord('Configurações')"></i>
+        </div>
+        <div class="icon-container">
+          <i class="fas fa-camera icon camera-icon" onclick="speakWord('Câmera')"></i>
+        </div>
+        <div class="icon-container">
+          <i class="fas fa-images icon gallery-icon" onclick="speakWord('Galeria')"></i>
+        </div>
+        <div class="icon-container">
+          <i class="fas fa-history icon call-history-icon" onclick="speakWord('Chamadas Recentes')"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tela de chat (inicialmente escondida) -->
+    <div class="chat-container" id="chatContainer">
+      <div class="message received" onclick="speakMessage('Olá, como você está?')">
+        Olá, como você está?
+      </div>
+      <div class="message" onclick="speakMessage('Estou bem, e você?')">
+        Estou bem, e você?
+      </div>
+      <div class="message received" onclick="speakMessage('Estou ótimo, obrigado!')">
+        Estou ótimo, obrigado!
+      </div>
+      <!-- Botão de voltar para o Home -->
+      <div class="back-to-home" onclick="goHome()">Voltar</div>
+    </div>
+
+    <!-- Botão Home -->
+    <div class="home-button" onclick="goHome()"></div>
+  </div>
+
+  <script>
+    // Função para ler a descrição do ícone clicado
+    function speakWord(icon) {
+      const speech = new SpeechSynthesisUtterance(icon);
+      speech.lang = 'pt-BR'; // Definindo o idioma para português
+      speech.rate = 1.5; // Ajustando a velocidade da fala
+      window.speechSynthesis.speak(speech);
+
+      // Se clicar no ícone de mensagem, abre a tela de chat
+      if (icon === 'Mensagem') {
+        openChat();
+      }
+    }
+
+    // Função para abrir a tela de chat
+    function openChat() {
+      document.getElementById('homeScreen').style.display = 'none'; // Esconde a tela inicial
+      document.getElementById('chatContainer').style.display = 'block'; // Exibe o chat
+    }
+
+    // Função para ler uma mensagem do chat
+    function speakMessage(message) {
+      const speech = new SpeechSynthesisUtterance(message);
+      speech.lang = 'pt-BR';
+      speech.rate = 1.5;
+      window.speechSynthesis.speak(speech);
+    }
+
+    // Função para voltar à tela inicial
+    function goHome() {
+      document.getElementById('homeScreen').style.display = 'block'; // Exibe a tela inicial com os ícones
+      document.getElementById('chatContainer').style.display = 'none'; // Esconde o chat
+    }
+  </script>
+</body>
+</html>
